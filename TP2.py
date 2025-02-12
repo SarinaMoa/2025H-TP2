@@ -29,11 +29,12 @@ def load_csv(csv_path):
     patients_dict = {}
 
     # TODO : Écrire votre code ici
-
-
-    # Fin du code
-
-    return patients_dict
+with open(csv_path, mode='r', newline='', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            patient_id = row['Participant_id']  # Remplacez 'ID' par le nom exact de la colonne d'identifiant dans le CSV
+            patients_dict[patient_id] = row 
+        return patients_dict
 
 ########################################################################################################## 
 # PARTIE 2 : Fusion des données (3 points)
