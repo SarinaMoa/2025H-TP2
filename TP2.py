@@ -27,15 +27,18 @@ def load_csv(csv_path):
         Dictionnaire composé des informations contenues dans le fichier csv
     """
     patients_dict = {}
-
+    
     # TODO : Écrire votre code ici
-with open(csv_path, mode='r', newline='', encoding='utf-8') as file:
+    with open(csv_path, mode='r', newline='') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            patient_id = row['Participant_id']  # Remplacez 'ID' par le nom exact de la colonne d'identifiant dans le CSV
-            patients_dict[patient_id] = row 
-        return patients_dict
-
+           participant_id = row.pop("participant_id")  # Remplacez 'ID' par le nom exact de la colonne d'identifiant dans le CSV
+           patients_dict[participant_id] = row 
+    return patients_dict
+csv_path = "subjects.csv"
+patients_dict = load_csv(csv_path)
+print(patients_dict["sub-tokyoIngenia04"])   
+  
 ########################################################################################################## 
 # PARTIE 2 : Fusion des données (3 points)
 ########################################################################################################## 
@@ -58,14 +61,25 @@ def load_multiple_csv(csv_path1, csv_path2):
         Dictionnaire composé des informations contenues dans les deux fichier csv SANS DUPLICATIONS
     """
     patients_dict = {}
-
-    # TODO : Écrire votre code ici
+    def load_csv(csv_path):
+        with open(csv_path, mode='r', newline='') as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                participant_id = row.pop("participant_id")  # Remplacez 'ID' par le nom exact de la colonne d'identifiant dans le CSV
+                if participant_id:
+                  if participant_id not in patients_dict:
+                    patients_dict[participant_id] = row 
+    load_csv(csv_path1)
+    load_csv(csv_path2)
+    return patients_dict
+    
+csv_path1 = "subjects.csv"
+csv_path2 = "extra_subjects.csv"
 
 
     # Fin du code
-
-    return patients_dict
-
+patients_dict = load_multiple_csv(csv_path1, csv_path2)
+print(patients_dict["sub-sherbrooke06"]) 
 ########################################################################################################## 
 # PARTIE 3 : Changements de convention (4 points)
 ########################################################################################################## 
