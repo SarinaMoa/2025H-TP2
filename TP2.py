@@ -116,8 +116,10 @@ def update_convention(old_convention_dict):
                 new_value = value.replace("-", "/")  
             new_patient_data[key] = new_value
 
-    new_convention_dict[patient_id] = new_patient_data
+            new_convention_dict[patient_id] = new_patient_data
+
     # Fin du code
+
     return new_convention_dict
 
 new_patients_dict = update_convention(patients_dict)
