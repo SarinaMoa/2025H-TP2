@@ -190,15 +190,39 @@ def fetch_statistics(patients_dict):
             - au troisième niveau: la moyenne et l'écart type --> metrics['M']['age'].keys() == ['mean', 'std'] ...
     
     """
-    metrics = {'M':{}, 'F':{}}
+    metrics = {'M':{},'F':{}}
+
+    for sex in metrics:
+        for key in ['age','height','weight']:
+            metrics[sex][key] = {'mean':0, 'std':0}
+
+    grouped_data = {'M': {'age': [], 'height': [], 'weight': []}, 'F': {'age': [], 'height': [], 'weight': []}}
 
     # TODO : Écrire votre code ici
 
-
+    for patient in patients_dict.values():
+        sex = patient.get('sex')
+        if sex in grouped_data:
+            for key in ['age', 'height', 'weight']:
+                value = patient.get(key)
+                if value and value.replace(".", "").isdigit():  # Check if numeric
+                    grouped_data[sex][key].append(float(value)) 
+            
+            
+    for sex in grouped_data:
+        for key, values in grouped_data[sex].items():
+            if values:  # Only compute if values exist
+                mean_value = sum(values) / len(values)
+                std_value = (sum((x - mean_value) ** 2 for x in values) / (len(values) - 1)) ** 0.5 if len(values) > 1 else 0
+                
+                metrics[sex][key]['mean'] = mean_value 
+                metrics[sex][key]['std'] = std_value  
     # Fin du code
 
     return metrics
-
+metrics = fetch_statistics(patients_dict)
+print(metrics['M']['height']['mean'])  
+print(metrics['F']['age']['std'])
 ########################################################################################################## 
 # PARTIE 6 : Bonus (+2 points)
 ########################################################################################################## 
