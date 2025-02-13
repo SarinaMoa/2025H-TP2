@@ -103,27 +103,22 @@ def update_convention(old_convention_dict):
 
     # TODO : Écrire votre code ici
 
+
     for patient_id, patient_data in old_convention_dict.items():
-        new_patient_data = {}
-        for key, value in patient_data.items():
-            new_value = value
+        for key in patient_data:
             if key == "date_of_scan":
             # Remplacer "n/a" par None
-              if value == "n/a":
-                new_value = None  
+              if patient_data[key] == "n/a":
+                patient_data[key] = None  
             # Modifier uniquement les dates (champs spécifiques)
-              elif isinstance(value, str):
-                new_value = value.replace("-", "/")  
-            new_patient_data[key] = new_value
-
-            new_convention_dict[patient_id] = new_patient_data
-
+              elif isinstance(patient_data[key], str):
+                patient_data[key] = patient_data[key].replace("-", "/")  
+        
     # Fin du code
 
     return new_convention_dict
 
-new_patients_dict = update_convention(patients_dict)
-print(new_patients_dict)
+
 
 ########################################################################################################## 
 # PARTIE 4 : Recherche de candidats pour une étude (5 points)
