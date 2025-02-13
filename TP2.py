@@ -148,13 +148,25 @@ def fetch_candidates(patients_dict):
     """
     candidates_list = []
 
+    for participant_id, data in patients_dict.items():
+      sexe = data.get("sex", "").strip().upper()  # Assurer que 'F' est bien détecté
+      age = int(data.get("age", 0))  # Convertir âge en entier
+      taille_str = data.get("height", "").strip()
+      if not taille_str.isdigit():
+         continue
+      taille = int(taille_str)  # Convertir taille en entier
+      
+      if sexe == "F" and 25 <= age <= 32 and taille > 170:
+         candidates_list.append(participant_id)
     # TODO : Écrire votre code ici
+
 
 
     # Fin du code
 
     return candidates_list
-
+patients_list = fetch_candidates(patients_dict)
+print(patients_list)
 ########################################################################################################## 
 # PARTIE 5 : Statistiques (6 points)
 ########################################################################################################## 
