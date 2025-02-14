@@ -237,7 +237,29 @@ def create_csv(metrics):
     paths_list : liste python (list)
         Liste contenant les chemins des deux fichiers "F_metrics.csv" et "M_metrics.csv"
     """
-    paths_list = []
+    paths_list = ['M_metrics.csv', 'F_metrics.csv']
+    
+    
+    with open('M_metrics.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        # Writing header row
+        writer.writerow(['stats', 'age', 'height', 'weight'])
+        # Writing data for mean and std for Males
+        writer.writerow(['mean', metrics['M']['age']['mean'], metrics['M']['height']['mean'], metrics['M']['weight']['mean']])
+        writer.writerow(['std', metrics['M']['age']['std'], metrics['M']['height']['std'], metrics['M']['weight']['std']])
+
+    # Writing to F_metrics.csv (for females)
+    with open('F_metrics.csv', mode='w', newline='') as file:
+        writer = csv.writer(file)
+        # Writing header row
+        writer.writerow(['stats', 'age', 'height', 'weight'])
+        # Writing data for mean and std for Females
+        writer.writerow(['mean', metrics['F']['age']['mean'], metrics['F']['height']['mean'], metrics['F']['weight']['mean']])
+        writer.writerow(['std', metrics['F']['age']['std'], metrics['F']['height']['std'], metrics['F']['weight']['std']])
+
+    return paths_list
+
+
 
     # TODO : Écrire votre code ici
 
