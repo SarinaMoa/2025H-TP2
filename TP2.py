@@ -32,7 +32,7 @@ def load_csv(csv_path):
     with open(csv_path, mode='r', newline='') as file:
         reader = csv.DictReader(file)
         for row in reader:
-           participant_id = row.pop("participant_id")  # Remplacez 'ID' par le nom exact de la colonne d'identifiant dans le CSV
+           participant_id = row.pop("participant_id")  
            patients_dict[participant_id] = row 
     return patients_dict
 csv_path = "subjects.csv"
@@ -65,7 +65,7 @@ def load_multiple_csv(csv_path1, csv_path2):
         with open(csv_path, mode='r', newline='') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                participant_id = row.pop("participant_id")  # Remplacez 'ID' par le nom exact de la colonne d'identifiant dans le CSV
+                participant_id = row.pop("participant_id")  
                 if participant_id:
                   if participant_id not in patients_dict:
                     patients_dict[participant_id] = row 
@@ -107,10 +107,8 @@ def update_convention(old_convention_dict):
     for patient_id, patient_data in old_convention_dict.items():
         for key in patient_data:
             if key == "date_of_scan":
-            # Remplacer "n/a" par None
               if patient_data[key] == "n/a":
-                patient_data[key] = None  
-            # Modifier uniquement les dates (champs spécifiques)
+                patient_data[key] = None 
               elif isinstance(patient_data[key], str):
                 patient_data[key] = patient_data[key].replace("-", "/")  
         
@@ -144,16 +142,16 @@ def fetch_candidates(patients_dict):
     candidates_list = []
 
     for participant_id, data in patients_dict.items():
-      sexe = data.get("sex", "").strip().upper()  # Assurer que 'F' est bien détecté
-      age = int(data.get("age", 0))  # Convertir âge en entier
+      sexe = data.get("sex", "").strip().upper()  
+      age = int(data.get("age", 0))  
       taille_str = data.get("height", "").strip()
       if not taille_str.isdigit():
          continue
-      taille = int(taille_str)  # Convertir taille en entier
+      taille = int(taille_str)  #
       
       if sexe == "F" and 25 <= age <= 32 and taille > 170:
          candidates_list.append(participant_id)
-    # TODO : Écrire votre code ici
+   
 
 
 
@@ -200,7 +198,7 @@ def fetch_statistics(patients_dict):
         if sex in grouped_data:
             for key in ['age', 'height', 'weight']:
                 value = patient.get(key)
-                if value and value.replace(".", "").isdigit():  # Check if numeric
+                if value and value.replace(".", "").isdigit():  
                     grouped_data[sex][key].append(float(value)) 
             
             
@@ -258,10 +256,6 @@ def create_csv(metrics):
         writer.writerow(['std', metrics['F']['age']['std'], metrics['F']['height']['std'], metrics['F']['weight']['std']])
 
     return paths_list
-
-
-
-    # TODO : Écrire votre code ici
 
 
     # Fin du code
