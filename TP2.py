@@ -1,9 +1,9 @@
 """
 TP2 : Gestion d'une base de données d'un hôpital
 
-Groupe de laboratoire : XX
-Numéro d'équipe :  YY
-Noms et matricules : Nom1 (Matricule1), Nom2 (Matricule2)
+Groupe de laboratoire : 02
+Numéro d'équipe :  03
+Noms et matricules : Sarina Moazami (2394044), Rym Zidi(2429561)
 """
 
 import csv
